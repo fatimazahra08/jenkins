@@ -9,7 +9,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the application...'
-                sh 'docker build -t my-python-app .'
+                bat 'docker build -t my-python-app .'
             }
         }
 
@@ -17,7 +17,7 @@ pipeline {
             steps {
                 echo 'Running tests...'
                 // Remplacez cette ligne par des tests réels
-                sh '''
+                bat '''
                     if [ -d tests ]; then
                         python -m unittest discover -s tests
                     else
@@ -31,7 +31,7 @@ pipeline {
         stage('Push to Docker Hub') {
             steps {
                 echo 'Pushing the Docker image to Docker Hub...'
-                sh '''
+                bat '''
                     echo "${DOCKER_HUB_CREDENTIALS_PSW}" | docker login -u "${DOCKER_HUB_CREDENTIALS_USR}" --password-stdin
                     docker tag my-python-app ${DOCKER_HUB_CREDENTIALS_USR}/my-python-app:latest
                     docker push ${DOCKER_HUB_CREDENTIALS_USR}/my-python-app:latest
@@ -42,7 +42,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying the application...'
-                sh '''
+                bat '''
                     ssh user@remote-server "docker pull ${DOCKER_HUB_CREDENTIALS_USR}/my-python-app:latest"
                     ssh user@remote-server "docker stop my-python-app || true"
                     ssh user@remote-server "docker rm my-python-app || true"
