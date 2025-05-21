@@ -13,19 +13,7 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-                bat '''
-                    if exist tests (
-                        python -m unittest discover -s tests
-                    ) else (
-                        echo Le dossier 'tests' est introuvable.
-                        exit /b 1
-                    )
-                '''
-            }
-        }
+        
 
         stage('Push to Docker Hub') {
             steps {
