@@ -30,10 +30,10 @@ pipeline {
             steps {
                 echo 'Deploying the application...'
                 bat '''
-                    ssh user@remote-server "docker pull %DOCKER_HUB_CREDENTIALS_USR%/my-python-app:latest"
-                    ssh user@remote-server "docker stop my-python-app || true"
-                    ssh user@remote-server "docker rm my-python-app || true"
-                    ssh user@remote-server "docker run -d -p 5000:5000 --name my-python-app %DOCKER_HUB_CREDENTIALS_USR%/my-python-app:latest"
+                    ssh DESKTOP-ODGMK62@192.168.56.1 "docker pull %DOCKER_HUB_CREDENTIALS_USR%/my-python-app:latest"
+                    ssh DESKTOP-ODGMK62@192.168.56.1 "docker stop my-python-app || true"
+                    ssh DESKTOP-ODGMK62@192.168.56.1 "docker rm my-python-app || true"
+                    ssh DESKTOP-ODGMK62@192.168.56.1 "docker run -d -p 5000:5000 --name my-python-app %DOCKER_HUB_CREDENTIALS_USR%/my-python-app:latest"
                 '''
             }
         }
